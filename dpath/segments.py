@@ -38,10 +38,9 @@ def leaf(thing):
     leaf(thing) -> bool
     '''
     if PY2:
-        leaves = (str, unicode, int, long, float, bool, type(None))
+        return not hasattr(thing, '__iter__')
     else:
-        leaves = (bytes, str, int, float, bool, type(None))
-    return isinstance(thing, leaves)
+        return not hasattr(thing, '__iter__') or isinstance(thing, (str, bytes))
 
 
 def leafy(thing):

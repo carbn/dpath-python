@@ -128,3 +128,18 @@ def test_delete_filter():
     assert (data['a']['b'] == 0)
     assert (data['a']['c'] == 1)
     assert ('d' not in data['a'])
+
+def test_types_string():
+    data = TestMapping({"a": "strvalue"})
+
+    value = dpath.util.get(data, '/a')
+    assert(value == 'strvalue')
+
+def test_types_object():
+    class CustomType(object):
+        pass
+
+    data = TestMapping({"a": CustomType()})
+
+    value = dpath.util.get(data, '/a')
+    assert(isinstance(value, CustomType))
